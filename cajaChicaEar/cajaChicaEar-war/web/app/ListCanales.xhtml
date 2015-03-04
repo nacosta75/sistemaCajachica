@@ -1,0 +1,81 @@
+<ui:composition template="/templates/layout.xhtml"
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui">
+     <ui:define name="content">
+        
+             
+         <h:form id="form">
+             
+                    <h3>
+                        <h:outputText value="Listado Canales"/>
+                    </h3>
+
+                   <!-- <h:panelGroup styleClass="errores">
+                        <h:messages layout="table" showDetail="true" />
+                    </h:panelGroup>-->
+       
+      
+                   <p:dataTable id="dataTable" var="canal" value="#{canalBean.listCanal}" styleClass="userDataTableStyle"
+                        paginator="true" rows="5" 
+                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                        rowsPerPageTemplate="5,10,15">
+                 
+                  <f:facet name="header">
+                    Lista de Canales
+                 </f:facet>  
+    
+                       <p:column sortBy="#{canal.idcanal}" style="height:40px " headerText="Id">
+                        <f:facet name="id">
+                                <h:outputText value="Id"/>
+                        </f:facet>
+                       <h:outputText value="#{canal.idcanal}"/>
+                       </p:column>    
+                        <p:column sortBy="#{canal.nombreCanal}" headerText="Nombre">
+                                 <f:facet name="nombre">
+                                         <h:outputText value="Nombre"/>
+                                 </f:facet>
+                            <h:outputText value="#{canal.nombreCanal}"/>
+        
+                       </p:column> 
+                <p:column>
+                      <p:commandLink  value="Modificar" title="View"
+                                         actionListener="#{canalBean.buscarCanal}"
+                                         update=":form:display" oncomplete="dlg.show()">
+                          <f:attribute name="plu" value="#{canal.idcanal}"></f:attribute>
+                      </p:commandLink> 
+                     
+         
+                 </p:column>
+                 <p:column>      
+                    <h:commandLink value="Eliminar" actionListener="#{canalBean.eliminarCanal}"  >
+                       <f:attribute name="plu" value="#{canal.idcanal}"></f:attribute>
+                   </h:commandLink>
+              </p:column>                        
+        </p:dataTable>
+                     
+                   
+                   <p:commandButton icon="ui-icon-circle-plus" value="Nuevo Canal"
+                                        update=":form:display" oncomplete="dlg.show()" actionListener="#{canalBean.buscarCanal}">
+                          <f:attribute name="plu" value="0"></f:attribute>
+                      </p:commandButton>  
+                   
+                    
+                     <p:dialog header="Detalle de Canal" modal="false" showEffect="fade" hideEffect="fade" widgetVar="dlg" resizable="true" >  
+                          <h:panelGrid id="display" columns="1">  
+                            <h:inputHidden  id="idcanal" value="#{canalBean.idcanal}" ></h:inputHidden> 
+                            <br/><h:outputLabel for="nombre" value="Nombre: *" /> 
+                            <p:inputText id="nombre" value="#{canalBean.nombre}"></p:inputText> 
+                             <p:message for="nombre" /> 
+                           
+                            <br/><p:commandButton value="Grabar" actionListener="#{canalBean.grabar}" 
+                                                  oncomplete="dlg.hide()" update=":form:dataTable" > 
+                                
+                           </p:commandButton>
+                           </h:panelGrid>   
+                      </p:dialog> 
+         </h:form>
+     </ui:define>
+</ui:composition>

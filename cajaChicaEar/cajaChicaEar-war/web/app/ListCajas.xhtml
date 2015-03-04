@@ -1,0 +1,87 @@
+<ui:composition template="/templates/layout.xhtml"
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui">
+     <ui:define name="content">
+        
+             
+         <h:form id="form">
+             
+                    <h3>
+                        <h:outputText value="Listado Usuarios"/>
+                    </h3>
+
+                   <!-- <h:panelGroup styleClass="errores">
+                        <h:messages layout="table" showDetail="true" />
+                    </h:panelGroup>-->
+       
+      
+                   <p:dataTable id="dataTable" var="bodega" value="#{bodegasBean.listSucursal}" styleClass="userDataTableStyle"
+                        paginator="true" rows="5" 
+                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                        rowsPerPageTemplate="5,10,15">
+                 
+                  <f:facet name="header">
+                    Lista de Bodegas
+                 </f:facet>  
+    
+                       <p:column sortBy="#{bodega.plubodega}" style="height:40px " headerText="Id">
+                        <f:facet name="id">
+                                <h:outputText value="Id"/>
+                        </f:facet>
+                           <h:outputText value="#{bodega.plubodega}"/>
+                       </p:column>    
+                       <p:column sortBy="#{bodega.nombre}" headerText="Nombre">
+                                 <f:facet name="nombre">
+                                         <h:outputText value="Nombre"/>
+                                 </f:facet>
+                            <h:outputText value="#{bodega.nombre}"/>
+        
+                       </p:column> 
+                       <p:column sortBy="#{bodega.cajaChica}" headerText="Monto">
+                                 <f:facet name="monto">
+                                         <h:outputText value="Monto"/>
+                                 </f:facet>
+                           <h:outputText value="#{bodega.cajaChica}"/>
+        
+                       </p:column> 
+                <p:column>
+                      <p:commandLink  value="Modificar" title="View"
+                                         actionListener="#{bodegasBean.buscarBodega}"
+                                         update=":form:display" oncomplete="dlg.show()">
+                          <f:attribute name="plu" value="#{bodega.plubodega}"></f:attribute>
+                      </p:commandLink> 
+                     
+         
+                 </p:column>
+                                    
+        </p:dataTable>
+                     
+               
+                    
+                     <p:dialog header="Detalle de Bodega" modal="false" showEffect="fade" hideEffect="fade" widgetVar="dlg" resizable="true" >  
+                          <h:panelGrid id="display" columns="1">  
+                              <h:inputHidden  id="idbodega" value="#{bodegasBean.idBodega}" ></h:inputHidden> 
+                            <br/><h:outputLabel for="nombre" value="Nombre: *" /> 
+                            <p:inputText id="nombre" value="#{bodegasBean.nombre}"></p:inputText> 
+                             <p:message for="nombre" /> 
+                             
+                             <br/><h:outputLabel for="cuenta" value="Cta Contable: *" /> 
+                             <p:inputText id="cuenta" value="#{bodegasBean.cuenta}"></p:inputText> 
+                             <p:message for="cuenta" /> 
+                           
+                             <br/><h:outputLabel for="monto" value="Monto: *" /> 
+                             <p:inputText id="monto" value="#{bodegasBean.cajachica}"></p:inputText> 
+                             <p:message for="monto" /> 
+                           
+                            <br/><p:commandButton value="Grabar" actionListener="#{bodegasBean.grabar}" 
+                                                  oncomplete="dlg.hide()" update=":form:dataTable" > 
+                                
+                           </p:commandButton>
+                           </h:panelGrid>   
+                      </p:dialog> 
+         </h:form>
+     </ui:define>
+</ui:composition>

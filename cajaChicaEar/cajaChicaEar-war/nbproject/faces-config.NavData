@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scene Scope="Project" version="2">
+    <Scope Scope="Faces Configuration Only"/>
+    <Scope Scope="Project">
+        <Node id="manager/ManagerHome.xhtml" x="20" y="255" zoom="true"/>
+        <Node id="app/ListTipodoc.xhtml" x="107" y="371" zoom="true"/>
+        <Node id="*" x="298" y="94" zoom="true"/>
+        <Node id="admin/UserList.xhtml" x="10" y="19" zoom="true"/>
+        <Node id="templates/tiles/LeftMenu.xhtml" x="339" y="29" zoom="true"/>
+        <Node id="app/DetCanal.xhtml" x="41" y="155" zoom="true"/>
+        <Node id="principal.xhtml" x="485" y="175" zoom="true"/>
+        <Node id="admin/AdminHome.xhtml" x="643" y="331" zoom="true"/>
+        <Node id="index.xhtml" x="425" y="368" zoom="false"/>
+        <Node id="welcomePrimefaces.xhtml" x="1150" y="150" zoom="true"/>
+        <Node id="app/ListCanales.xhtml" x="572" y="245" zoom="true"/>
+        <Node id="ErrorAccessDenied.xhtml" x="150" y="600" zoom="true"/>
+        <Node id="templates/layout.xhtml" x="332" y="310" zoom="true"/>
+    </Scope>
+    <Scope Scope="All Faces Configurations"/>
+</Scene>

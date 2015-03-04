@@ -1,0 +1,107 @@
+<ui:composition template="/templates/layout.xhtml"
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui">
+     <ui:define name="content">
+       
+         <h:form id="formTDoc">
+             
+                    <h3>
+                        <h:outputText value="Listado Tipo Documentos"/>
+                    </h3>
+
+                   <!-- <h:panelGroup styleClass="errores">
+                        <h:messages layout="table" showDetail="true" />
+                    </h:panelGroup>-->
+       
+      
+                   <p:dataTable id="dataTable" var="tipodocs" value="#{tipodocBean.tipodoc}" styleClass="userDataTableStyle"
+                        paginator="true" rows="10" 
+                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                        rowsPerPageTemplate="10,15,50">
+                 
+                  <f:facet name="header">
+                    Lista Tipo de Documentos
+                </f:facet>  
+    
+                       <p:column sortBy="#{tipodocs.idtipodoc}" style="height:40px " headerText="Id">
+                        <f:facet name="id">
+                                <h:outputText value="Id"/>
+                        </f:facet>
+                       <h:outputText value="#{tipodocs.idtipodoc}"/>
+               </p:column>    
+                       <p:column sortBy="#{tipodocs.descripcion}" headerText="Nombre">
+                        <f:facet name="nombre">
+                                <h:outputText value="Nombre"/>
+                        </f:facet>
+                           <h:outputText value="#{tipodocs.descripcion}"/>
+                
+             </p:column>  
+            <p:column>
+                      <p:commandLink  value="Modificar" title="View"
+                                      actionListener="#{tipodocBean.buscarTipodoc}"
+                                         update=":formTDoc:display" oncomplete="dlg.show()">
+                          <f:attribute name="plu" value="#{tipodocs.idtipodoc}"></f:attribute>
+                      </p:commandLink> 
+                     
+         
+                 </p:column>
+                 <p:column>      
+                     <h:commandLink value="Eliminar" actionListener="#{tipodocBean.eliminarTipodoc}"  >
+                       <f:attribute name="plu" value="#{tipodocs.idtipodoc}"></f:attribute>
+                   </h:commandLink>
+              </p:column>    
+            
+        </p:dataTable>
+                   
+                   
+                   <p:commandButton icon="ui-icon-circle-plus" value="Nuevo Tipo Doc."
+                                         oncomplete="dlg.show()" >
+                         
+                      </p:commandButton>
+         
+                         <p:dialog header="Detalle de Tipo Doc" modal="false" showEffect="fade" hideEffect="fade" widgetVar="dlg" resizable="true" >  
+                          <h:panelGrid id="display" columns="1">  
+                            <br/><h:outputLabel for="nombre" value="Nombre: *" /> 
+                            <p:inputText id="nombre" value="#{tipodocBean.descripcion}"></p:inputText> 
+                             <p:message for="nombre" /> 
+                            
+                              
+                            <br/><p:commandButton id="aceptbtn2"  value="Grabar"  actionListener="#{tipodocBean.grabar}" 
+                                              oncomplete="dlg.hide()" update=":formTDoc:dataTable"  > 
+                                
+                           </p:commandButton>
+                              
+     
+                           </h:panelGrid>   
+                      </p:dialog> 
+                          
+           
+        </h:form>
+         
+        
+         
+         <p:growl id="growl" showDetail="true" life="5000" />
+         
+         <script type="text/javascript">  
+    function handleSubmitRequest(xhr, status, args, dialogName, formName) {  
+            dialog = jQuery('#'+dialogName);
+        if(args.validationFailed) {  
+            dialog.effect("shake", { times:3 }, 100);  
+        } else {
+            clearForm(formName);
+            newUserDialog.hide(); 
+            userDialog.hide(); 
+        }  
+    }
+    function clearForm(formName){
+        jQuery('#'+formName).each(function(){
+	        this.reset();
+	});
+    }
+</script> 
+         
+</ui:define>
+</ui:composition>

@@ -1,0 +1,119 @@
+<ui:composition template="/templates/layout.xhtml"
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui">
+     <ui:define name="content">
+       
+         <h:form id="form">
+             
+                    <h3>
+                        <h:outputText value="Lista Catalogo"/>
+                    </h3>
+
+                   <!-- <h:panelGroup styleClass="errores">
+                        <h:messages layout="table" showDetail="true" />
+                    </h:panelGroup>-->
+       
+      
+                   <p:dataTable id="dataTable" var="catalogo" value="#{catalogoBean.listCatalogo}" styleClass="userDataTableStyle"
+                        paginator="true" rows="5" 
+                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                        rowsPerPageTemplate="5,15,25">
+                 
+                  <f:facet name="header">
+                    Lista de Catalogo
+                 </f:facet>  
+    
+                       <p:column sortBy="#{catalogo.idgcatalogo}" style="height:40px " headerText="Id">
+                        <f:facet name="id">
+                                <h:outputText value="Id"/>
+                        </f:facet>
+                       <h:outputText value="#{catalogo.idgcatalogo}"/>
+                       </p:column>    
+                       <p:column sortBy="#{catalogo.nombreGasto}" headerText="Nombre">
+                                 <f:facet name="nombre">
+                                         <h:outputText value="Nombre"/>
+                                 </f:facet>
+                          <h:outputText value="#{catalogo.nombreGasto}"/>
+                       </p:column> 
+              <p:column>
+                     
+                  <h:commandLink value="Modificar" action="NUEVOCATALOGO"  actionListener="#{catalogoBean.buscarCatalogo}" >
+                      <f:attribute name="plu" value="#{catalogo.idgcatalogo}"></f:attribute>
+                     </h:commandLink>
+                  </p:column>
+               <p:column>
+                   <h:commandLink value="Eliminar" action="LCATALOGO"  actionListener="#{catalogoBean.eliminarCatalogo}" >
+                       <f:attribute name="plu" value="#{catalogo.idgcatalogo}"></f:attribute>
+                   </h:commandLink>
+                  
+                </p:column>           
+                
+              
+            
+            
+        </p:dataTable>
+                     
+                          
+           
+        
+                      <p:commandButton icon="ui-icon-circle-plus" value="Nuevo Producto"
+                                         oncomplete="dlg.show()" >
+                         
+                      </p:commandButton>
+                   
+                          <h:commandLink value="Catalogo a  Excel"
+                                         actionListener="#{catalogoBean.aExcel()}">
+                            
+                            </h:commandLink>
+         
+                         <p:dialog header="Detalle de Catalogo" modal="false" showEffect="fade" hideEffect="fade" widgetVar="dlg" resizable="true" >  
+                          <h:panelGrid id="display1" columns="1">  
+                            <h:outputLabel for="idcatalogo" value="id: " /> 
+                            <h:inputText  id="idcatalogo" value="#{catalogoBean.idcatalogo}" disabled="true"></h:inputText> 
+                            <br/><h:outputLabel for="nombre" value="Nombre: *" /> 
+                            <p:inputText id="nombre" value="#{catalogoBean.nombre}"></p:inputText> 
+                             <p:message for="nombre" /> 
+                            <h:outputText value="fovial: *" />  
+                            <p:selectBooleanCheckbox value="#{catalogoBean.fovial}"   />
+                              
+                            <br/><p:commandButton id="aceptbtn2"  value="Grabar"  actionListener="#{catalogoBean.grabar}" 
+                                              oncomplete="dlg.hide()" update=":form:dataTable"  > 
+                                
+                           </p:commandButton>
+                              
+     
+                           </h:panelGrid>   
+                      </p:dialog> 
+         
+        </h:form>
+         
+         
+            <p:dialog header="Effects" widgetVar="dlg3" showEffect="explode" hideEffect="bounce" height="100">  
+                <h:outputText value="This dialog has nice effects." />  
+            </p:dialog> 
+         
+         <p:growl id="growl" showDetail="true" life="5000" />
+         
+         <script type="text/javascript">  
+    function handleSubmitRequest(xhr, status, args, dialogName, formName) {  
+            dialog = jQuery('#'+dialogName);
+        if(args.validationFailed) {  
+            dialog.effect("shake", { times:3 }, 100);  
+        } else {
+            clearForm(formName);
+            newUserDialog.hide(); 
+            userDialog.hide(); 
+        }  
+    }
+    function clearForm(formName){
+        jQuery('#'+formName).each(function(){
+	        this.reset();
+	});
+    }
+</script> 
+         
+</ui:define>
+</ui:composition>

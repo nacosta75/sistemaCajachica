@@ -1,0 +1,105 @@
+<ui:composition template="/templates/layout.xhtml"
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui">
+     <ui:define name="content">
+        
+             
+         <h:form id="form">
+             
+                    <h3>
+                        <h:outputText value="Listado Bodegas"/>
+                    </h3>
+
+                   <!-- <h:panelGroup styleClass="errores">
+                        <h:messages layout="table" showDetail="true" />
+                    </h:panelGroup>-->
+       
+      
+                   <p:dataTable id="dataTable" var="user" value="#{loginBean.listUsuarios}" styleClass="userDataTableStyle"
+                        paginator="true" rows="5" 
+                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                        rowsPerPageTemplate="5,10,15">
+                 
+                  <f:facet name="header">
+                    Lista de Usuarios
+                 </f:facet>  
+    
+                       <p:column sortBy="#{user.idusuario}" style="height:40px " headerText="Id">
+                        <f:facet name="id">
+                                <h:outputText value="Id"/>
+                        </f:facet>
+                           <h:outputText value="#{user.idusuario}"/>
+                       </p:column>    
+                       <p:column sortBy="#{user.nombre}" headerText="Nombre">
+                                 <f:facet name="nombre">
+                                         <h:outputText value="Nombre"/>
+                                 </f:facet>
+                            <h:outputText value="#{user.nombre}"/>
+        
+                       </p:column> 
+                      
+                      
+                      <p:column>
+                      <p:commandLink  value="Modificar" title="View"
+                                         actionListener="#{loginBean.buscarUsuario}"
+                                         update=":form:display" oncomplete="dlg.show()">
+                          <f:attribute name="plu" value="#{user.idusuario}"></f:attribute>
+                      </p:commandLink> 
+                     
+         
+                      </p:column>
+                                    
+        </p:dataTable>
+                   
+                   
+                      <p:commandButton icon="ui-icon-circle-plus" value="Nuevo Usuario"
+                                         oncomplete="dlg.show()" >
+                         
+                      </p:commandButton>
+                     
+               
+                    
+                     <p:dialog header="Modificar Usuario" modal="false" showEffect="fade" hideEffect="fade" widgetVar="dlg" resizable="true" >  
+                          <h:panelGrid id="display" columns="1">  
+                              <h:inputHidden  id="idusuario" value="#{loginBean.idusuario}" ></h:inputHidden> 
+                            <br/><h:outputLabel for="nombre" value="Nombre: *" /> 
+                            <p:inputText id="nombre" value="#{loginBean.nombre}"></p:inputText> 
+                             <p:message for="nombre" /> 
+                             
+                             <br/><h:outputLabel for="usuario" value="Usuario: *" /> 
+                             <p:inputText id="usuario" value="#{loginBean.usuario}"></p:inputText> 
+                             <p:message for="usuario" /> 
+                           
+                             <br/><h:outputLabel for="clave" value="Clave: *" /> 
+                           
+                             <p:inputText id="clave" value="#{loginBean.clave}"/>
+                             <p:message for="clave" /> 
+                           
+                             <br/><h:outputLabel for="nivel" value="Nivel: " /> 
+                             <p:spinner id="nivel" value="#{loginBean.nivel}" title="Nivel de acceso,1-Completo, 2-Basico" min="1" max="2" />
+                                                          
+                             <br/><h:outputLabel for="Bodega" value="Bodega: " /> 
+                                  <p:selectOneMenu id="Bodega" value="#{loginBean.idsucursal}">
+                                 <f:selectItems value="#{bodegasBean.bodegaLista}">
+                                 </f:selectItems>
+                               
+                                </p:selectOneMenu>
+                             
+                             <p:message for="Bodega" />
+                             
+                             <br/><h:outputText value="Todas: " />  
+                             <p:selectBooleanCheckbox value="#{loginBean.general}"  validatorMessage="Acceso a Todas las Cajas"  />
+                             
+                             
+                            <br/><p:commandButton value="Grabar" actionListener="#{loginBean.grabar}" 
+                                                  oncomplete="dlg.hide()" update=":form:dataTable" > 
+                                
+                           </p:commandButton>
+                           </h:panelGrid>   
+                      </p:dialog> 
+         </h:form>
+     </ui:define>
+</ui:composition>

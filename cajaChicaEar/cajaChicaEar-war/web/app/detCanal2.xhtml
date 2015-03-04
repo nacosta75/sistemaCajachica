@@ -1,0 +1,28 @@
+<ui:composition template="/templates/layout.xhtml"
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui">
+     <ui:define name="content">
+       
+        <h:form id="formCanal"  >
+         <p:panel id="display" header="Detalle de Canal" style="margin-bottom:10px;">  
+          <p:messages id="messages"/>  
+          <h:panelGrid columns="3">  
+            <h:outputLabel for="idcanal" value="idcanal: *" /> 
+            <p:inputText id="idcanal" value="#{canalBean.idcanal}"></p:inputText> 
+            <br/><h:outputLabel for="nombre" value="Nombre: *" /> 
+            <p:inputText id="nombre" value="#{canalBean.nombre}"></p:inputText> 
+             <p:message for="nombre" /> 
+           <br/><h:outputLabel for="estado" value="Estado: *" /> 
+           <p:inputText id="estado" value="#{canalBean.estado}"></p:inputText> 
+             <p:message for="estado" />
+            <br/><p:commandButton value="Grabar" action="LCANAL" actionListener="#{canalBean.grabar}" > 
+           </p:commandButton>
+           </h:panelGrid> 
+        </p:panel> 
+        </h:form>
+       
+ </ui:define>
+</ui:composition>

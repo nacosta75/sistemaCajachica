@@ -1,0 +1,35 @@
+<ui:composition 
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui"
+     xmlns:c="http://java.sun.com/jsp/jstl/core">
+          
+        
+          <h:form id="Resumen" >
+               <h:panelGrid columns="3" > 
+                <c:if test="#{loginBean.login}"> 
+                 
+                  <h:panelGrid id="dataSaldos"  > 
+                         
+                             <h:outputLabel  value="Monto Caja: " /> 
+                             <h:outputText value="#{loginBean.montoCaja}"/>
+                        
+                      
+                          <h:outputLabel  value="Gastos: " /> 
+                          <h:outputText id="TGastos" title="Gastos" value="#{detGastos.TGastos}"/>
+                      
+                     
+                          <h:outputLabel value="Disponible:" /> 
+                          <h:outputText id="TDisponible"  value="#{loginBean.montoCaja-detGastos.TGastos}"/>
+                     
+                      </h:panelGrid>
+                 
+                </c:if>   
+               </h:panelGrid>
+          </h:form>
+       
+      
+</ui:composition>
+

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="scriptlet" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="30" rightMargin="30" topMargin="30" bottomMargin="30" whenResourceMissingType="Empty" uuid="e1d937b7-b948-4cbe-baa7-0199e4875db8">
+	<property name="com.jasperassistant.designer.Grid" value="false"/>
+	<property name="com.jasperassistant.designer.SnapToGrid" value="false"/>
+	<property name="com.jasperassistant.designer.GridWidth" value="12"/>
+	<property name="com.jasperassistant.designer.GridHeight" value="12"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="iddetgasto" class="java.lang.String">
+		<fieldDescription><![CDATA[country]]></fieldDescription>
+	</field>
+	<field name="fechaIng" class="java.lang.String">
+		<fieldDescription><![CDATA[occupation]]></fieldDescription>
+	</field>
+	<field name="provNombre" class="java.lang.String">
+		<fieldDescription><![CDATA[name]]></fieldDescription>
+	</field>
+	<field name="provRegistro" class="java.lang.String">
+		<fieldDescription><![CDATA[place]]></fieldDescription>
+	</field>
+	<field name="placa" class="java.lang.String"/>
+	<field name="idsucursal" class="java.lang.String"/>
+	<field name="idusuario" class="java.lang.String"/>
+	<field name="procesado" class="java.lang.String"/>
+	<field name="fechaDoc" class="java.lang.String"/>
+	<field name="idtipoDoc" class="java.lang.String"/>
+	<field name="numDoc" class="java.lang.String"/>
+	<field name="idCanal" class="java.lang.String"/>
+	<field name="idGasto" class="java.lang.String"/>
+	<field name="ctaContable" class="java.lang.String"/>
+	<field name="concepto" class="java.lang.String"/>
+	<field name="gravado" class="java.lang.String"/>
+	<field name="iva" class="java.lang.String"/>
+	<field name="fovial" class="java.lang.String"/>
+	<field name="total" class="java.lang.String"/>
+	<field name="galonesSD" class="java.lang.String"/>
+	<field name="km_actual" class="java.lang.String"/>
+	<group name="dummy">
+		<groupExpression><![CDATA["dummy"]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<staticText>
+					<reportElement uuid="a14ace61-0ad4-408e-a1c5-659cb371d410" mode="Opaque" x="0" y="5" width="535" height="15" backcolor="#70A9A9"/>
+					<box>
+						<bottomPen lineWidth="1.0" lineColor="#CCCCCC"/>
+					</box>
+					<textElement/>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="c6d03da5-d400-4857-8265-ca53ca2e814b" x="136" y="5" width="150" height="15"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Fecha]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="fc98be2a-84c9-44b5-9b1a-e4f77273d4ea" x="286" y="5" width="128" height="15"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[registro]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="ece8c17c-f1b3-472e-96c5-eb7fd4557b7d" x="414" y="5" width="121" height="15"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[nombre]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="a0235405-1e52-4fa8-9521-8b9fde699855" x="0" y="5" width="136" height="15"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Id]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+	</group>
+	<detail>
+		<band height="16">
+			<staticText>
+				<reportElement uuid="22e66486-7b2f-4db9-9471-c0c6ee9aed20" mode="Opaque" x="0" y="0" width="535" height="14" backcolor="#E5ECF9"/>
+				<box>
+					<bottomPen lineWidth="0.25" lineColor="#CCCCCC"/>
+				</box>
+				<textElement/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="861ffb5b-6fe1-436a-9b87-372b51eda60a" x="136" y="0" width="150" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fechaIng}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a1f5950f-e5cb-4b4b-8b33-4181a6a8b4f5" x="286" y="0" width="128" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{provRegistro}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="8d24bbe1-8a65-4b30-aff7-7898fc1d81f0" x="414" y="0" width="121" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{provNombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b45950d0-019a-433a-8f1f-c496fc6d3709" x="0" y="0" width="136" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{iddetgasto}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
