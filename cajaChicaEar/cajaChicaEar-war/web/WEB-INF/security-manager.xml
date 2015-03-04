@@ -24,16 +24,16 @@
         <authentication-provider>            
             <jdbc-user-service data-source-ref="dataSource" 
                                users-by-username-query="select usuario as username, clave as password, 'true' as enabled from CCH_USUARIO where usuario=? limit 1"
-                               uthorities-by-username-query="select usuario as username, nivel as role from CCH_USUARIO where usuario =?  "          >
+                               authorities-by-username-query="select usuario as username, nivel as role from CCH_USUARIO where usuario =?  "          >
             </jdbc-user-service>
         </authentication-provider>
             
     </authentication-manager>	
     <beans:bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <beans:property name="driverClassName" value="org.firebirdsql.jdbc.FBDriver" />
-        <beans:property name="url" value="jdbc:firebirdsql://localhost:3050//opt/datos/diserv/diserv.gdb" />
+        <beans:property name="url" value="jdbc:firebirdsql://190.57.71.42:3050//home/administrator/datos/cajachica.gdb" />
         <beans:property name="username" value="sysdba" />
-        <beans:property name="password" value="masterkey" />
+        <beans:property name="password" value="masteregno082013$$" />
     </beans:bean>
     
     <beans:bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
