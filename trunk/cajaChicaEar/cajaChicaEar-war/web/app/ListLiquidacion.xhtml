@@ -1,0 +1,208 @@
+<ui:composition template="/templates/layout.xhtml"
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui"
+     xmlns:c="http://java.sun.com/jsp/jstl/core">
+     <ui:define name="content">
+        
+             
+         <h:form id="form">
+             <h:messages rendered="#{detLiquid.sussesfuladd}" showSummary="false" showDetail="true"  style="color: red;"/>
+                    <h3>
+                        <h:outputText value="Listado Liquidaciones"/>
+                    </h3>
+
+                   <!-- <h:panelGroup styleClass="errores">
+                        <h:messages layout="table" showDetail="true" />
+                    </h:panelGroup>
+                   -->
+       
+                   <p:dataTable id="dataTable" var="liquidacion" value="#{detLiquid.listatodo}" styleClass="userDataTableStyle"
+                        paginator="true" rows="15" 
+                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                        rowsPerPageTemplate="5,10,15" >
+                 
+                  <f:facet name="header">
+                    Lista de Liquidaciones
+                 </f:facet>  
+                 
+                       <p:column headerText="ID" >
+                                <h:outputText value="#{liquidacion.idliq}"/>
+                       </p:column>
+ 
+                       <p:column sortBy="#{liquidacion.fecha}" headerText="Fecha">
+                                 <f:facet name="fecha">
+                                         <h:outputText value="Fecha"/>
+                                 </f:facet>
+                          
+                            <h:outputFormat value="{0, date, dd-MM-yyyy}">
+                                <f:param value="#{liquidacion.fecha}" />
+                            </h:outputFormat>
+        
+                       </p:column> 
+     
+                       <p:column headerText="Cantidad Docs:">
+                               
+                                     <h:outputText value="#{liquidacion.cantDocs}"/>
+                               
+                       </p:column> 
+    
+                       <p:column sortBy="#{liquidacion.totalCaja}" headerText="Total">
+                                 <f:facet name="Total">
+                                         <h:outputText value="Total"/>
+                                 </f:facet>
+                           <h:outputText value="#{liquidacion.totalDocs}"/>
+        
+                       </p:column>
+                       
+                       <p:column headerText="Concepto">
+                        
+                           <h:outputText value="#{liquidacion.observaciones}"/>
+
+                       </p:column>
+                      <p:column>
+                      <p:commandLink  id="edit" value="Modificar" title="Editar Liq"
+                                      actionListener="#{detLiquid.popupediton}"
+                                      oncomplete="dlg2.show()" update=":form:popupedit"  disabled="#{liquidacion.isProcesado()}" >
+                        
+                          <f:setPropertyActionListener target="#{detLiquid.liquidEdit}" value="#{liquidacion}" />
+                          
+                      </p:commandLink> 
+                   
+                 </p:column>
+                       <p:column>
+                      <p:commandLink  id="proc" value="Procesar" title="Procesar Liq"
+                                      actionListener="#{detLiquid.popupediton}"
+                                        update=":form:popupprocesar" oncomplete="dlg4.show()" disabled="#{liquidacion.isProcesado()}" >
+                          <f:setPropertyActionListener target="#{detLiquid.liquidEdit}" value="#{liquidacion}"  />
+                          
+                      </p:commandLink> 
+                   
+                 </p:column>
+                       <p:column headerText="Exportar">  
+                           <h:commandLink value="aExcel"
+                                          actionListener="#{detLiquid.aExcel}">
+                               <f:attribute name="plu" value="#{liquidacion.idliq}"></f:attribute>
+                               <!-- <f:setPropertyActionListener target="#{detLiquid.liquidEdit}" value="#{liquidacion}"  />   -->
+                            </h:commandLink>
+                       </p:column>   
+                       <p:column headerText="Generar">      
+                           <h:commandLink value="Partida"
+                                          actionListener="#{detLiquid.aExcelPartida}">
+                               <f:attribute name="plu" value="#{liquidacion.idliq}"></f:attribute>
+                               <!-- <f:setPropertyActionListener target="#{detLiquid.liquidEdit}" value="#{liquidacion}"  />   -->
+                            </h:commandLink>
+                       </p:column>   
+                 <p:column>      
+                     <p:commandLink id="delete" value="Eliminar" title="Eliminar Liq" 
+                                    actionListener="#{detLiquid.popupdeleteon}" update=":form:popupdelete" oncomplete="dlg3.show()"
+                                     disabled="#{liquidacion.isProcesado()}">
+                         <f:setPropertyActionListener target="#{detLiquid.selectdelete}" value="#{liquidacion.idliq}"/>
+                   </p:commandLink>
+              </p:column>                        
+        </p:dataTable>
+                   
+                   
+                   
+                    <p:dialog header="Confirmacion" modal="false" showEffect="false" hideEffect="fade" 
+                              widgetVar="dlg4" resizable="false"  >                        
+                    <p:panel id="popupprocesar">
+                     
+                                <h:panelGroup id="contentpopup4" >
+                                    <h:outputLabel id="message4" value="Seguro que desea Procesar?"/>
+                                    <h:panelGrid style="alignment-adjust:center" columns="2" >
+                       
+                                        <h:commandButton value="SI" actionListener="#{detLiquid.procesar}" id="confirmproc" type="submit" onclick="dlg4.hide()" />
+                                        <p:commandButton value="NO" actionListener="#{detLiquid.popupeditoff}" id="cancelproc" type="submit" oncomplete="dlg4.hide()" update=":form:dataTable"/>                            
+                                    </h:panelGrid>
+                                </h:panelGroup>
+                    </p:panel>             
+                    </p:dialog>
+                
+                   
+                              
+                   
+                   
+                   
+                     <p:dialog header="Detalle de Liquidacion" modal="false" showEffect="fade" hideEffect="fade" widgetVar="dlg2" resizable="true" >  
+                         
+                      
+                       <h:panelGrid id="popupedit" columns="2"   >  
+                         <h:inputHidden id="idliquid2" value="#{detLiquid.liquidEdit.idliq}" ></h:inputHidden>    
+                          <p:row>  
+                             <h:outputLabel  value="Fecha : " /> 
+                             <br/><h:outputFormat value="{0, date, dd-MM-yyyy}">
+                                <f:param value="#{liquidacion.fecha}" />
+                            </h:outputFormat>
+                            <br/><h:outputLabel for="concepto2" value="Observaciones: " /> 
+                            <br/><p:inputTextarea rows="5" cols="40" id="concepto2" value="#{detLiquid.liquidEdit.observaciones}"   ></p:inputTextarea>
+                             <p:message for="concepto2" />
+                                                                                
+                             <br/><h:outputLabel for="TCaja2" value="Monto Caja: " /> 
+                             <br/><p:inputText id="TCaja2" value="#{detLiquid.liquidEdit.totalCaja}"  readonly="true" ></p:inputText> 
+                             <p:message for="TCaja2" />
+                             
+                             <br/><h:outputLabel for="TDocs2" value="Total Docs: " /> 
+                             <br/><p:inputText id="TDocs2" value="#{detLiquid.liquidEdit.totalDocs}" readonly="true" ></p:inputText> 
+                             <p:message for="TDocs2" />
+                 
+                             <br/><h:outputLabel for="TEfectivo2" value="Efectivo: *" /> 
+                             <br/><p:inputText id="TEfectivo2" value="#{detLiquid.liquidEdit.totalEfec}" ></p:inputText> 
+                             <p:message for="TEfectivo2" />
+                             
+                             <br/><h:outputLabel for="Faltante2" value="Faltante: " /> 
+                             <br/><p:inputText id="Faltante2" value="#{detLiquid.liquidEdit.faltante}" readonly="true" ></p:inputText> 
+                             <p:message for="Faltante2" />
+                                                                           
+                          
+                             
+                            </p:row> 
+                         
+                      
+                          </h:panelGrid> 
+                       <br/>
+                          
+                       <p:commandButton id="aceptbtn2"  value="Grabar"  actionListener="#{detLiquid.editar(event)}" 
+                                              type="submit" oncomplete="dlg.hide()" update=":form:dataTable" > 
+                                
+                           </p:commandButton>
+                       
+                       <p:commandButton id="cancelbtn2" value="Cancelar"  actionListener="#{detLiquid.popupeditoff}" 
+                                              type="submit" oncomplete="dlg.hide()" update=":form:dataTable" immediate="true" > 
+                                
+                           </p:commandButton>
+                       
+                       <br/><h:commandLink value="Lista de Gastos a Excel"
+                                      actionListener="#{detLiquid.aExcelGastos}">
+                           <f:attribute name="plu" value="#{detLiquid.liquidEdit.idliq}"></f:attribute>
+                               <!-- <f:setPropertyActionListener target="#{detLiquid.liquidEdit}" value="#{liquidacion}"  />   -->
+                        </h:commandLink>
+                       <c:if test="#{loginBean.admin}">
+                       <br/><h:commandLink value="Modificar Gastos"
+                                         >
+                               <f:attribute name="plu" value="#{detLiquid.idliq}"></f:attribute>
+                              
+                        </h:commandLink>
+                       </c:if>         
+                     </p:dialog> 
+                   <!-- <p:commandButton oncomplete="alert('Informe generado correctamente');"
+                                     value="Generar informe"/>-->
+                   <p:dialog header="Confirmacion" modal="false" showEffect="false" hideEffect="fade" 
+                              widgetVar="dlg3" resizable="false"  >                        
+                    <p:panel id="popupdelete">
+                     
+                                <h:panelGroup id="contentpopup" >
+                                    <h:outputLabel id="message" value="Seguro que desea Eliminar?"/>
+                                    <h:panelGrid style="alignment-adjust:center" columns="2" >
+                                        <p:commandButton value="SI" actionListener="#{detLiquid.borrar}" id="confirmdelete" type="submit" oncomplete="dlg3.hide()" update=":form:dataTable"/>
+                                        <p:commandButton value="NO" actionListener="#{detLiquid.popupdeleteoff}" id="canceldelete" type="submit" oncomplete="dlg3.hide()" update=":form:dataTable"/>                            
+                                    </h:panelGrid>
+                                </h:panelGroup>
+                    </p:panel>             
+                    </p:dialog>
+                   
+         </h:form>
+     </ui:define>
+</ui:composition>

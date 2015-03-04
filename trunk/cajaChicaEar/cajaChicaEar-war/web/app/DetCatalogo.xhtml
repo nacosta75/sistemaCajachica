@@ -1,0 +1,123 @@
+<ui:composition template="/templates/layout.xhtml"
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui">
+     <ui:define name="content">
+        <h:form id="catalogoDetailForm">
+          <p:panel id="panel" header="Detalle de Catalogo" style="margin-bottom:10px;">  
+          <p:messages id="messages"/>  
+          <h:panelGrid columns="3">  
+            <h:outputLabel for="idcatalogo" value="idcatalogo: *" /> 
+            <p:inputText id="idcanal" value="#{catalogoBean.idcatalogo}"></p:inputText> 
+            <br/><h:outputLabel for="nombre" value="Nombre: *" /> 
+            <p:inputText id="nombre" value="#{catalogoBean.nombre}"></p:inputText> 
+             <p:message for="nombre" /> 
+             
+             <h:outputText value="fovial: *" />  
+             <p:selectBooleanCheckbox value="#{catalogoBean.fovial}"   />
+             
+             
+           <br/><p:commandButton value="Grabar" action="LCATALOGO" actionListener="#{catalogoBean.grabar}" > 
+           </p:commandButton>
+           
+           </h:panelGrid> 
+        </p:panel> 
+            
+            <p:commandButton value="Insert Cuentas Contables" disabled="false" id="disabled"
+                             actionListener="#{detCatalogoBean.cargarDetalle}" update=":catalogoDetailForm:display">          
+            </p:commandButton> 
+            
+            
+             <p:commandButton value="Ver Detalle" disabled="false" id="cuentas"
+                              actionListener="#{detCatalogoBean.verDetCatalogo}" update=":catalogoDetailForm:display">            
+             <f:attribute name="plu" value="#{catalogoBean.idcatalogo}"></f:attribute>
+            </p:commandButton> 
+            
+          
+  
+            <p:panel id="display" header="Cuentas Contables" style="margin-top:10px;">  
+                     
+                <p:dataTable id="dataTable" var="detCat" value="#{detCatalogoBean.listDetCatalogo}" styleClass="userDataTableStyle"
+                        paginator="true" rows="10" 
+                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                        rowsPerPageTemplate="10,15,50"  > 
+   
+                       <f:facet name="header">
+                    Lista de Cuentas
+                 </f:facet>  
+                    <p:column sortBy="#{detCat.id}" style="height:40px " headerText="Id">
+                        <f:facet name="id">
+                                <h:outputText value="Id"/>
+                        </f:facet>
+                        <h:outputText value="#{detCat.id}"/>
+                     </p:column>    
+                    <p:column sortBy="#{detCat.idgcatalogo}" headerText="catalogo">
+                       <f:facet name="catalogo">
+                                <h:outputText value="catalogo"/>
+                       </f:facet>
+                         <h:outputText value="#{detCat.idgcatalogo.nombreGasto}"/>
+                     </p:column> 
+                    <p:column sortBy="#{detCat.idsucursal}" headerText="sucursal">
+                       <f:facet name="sucursal">
+                                <h:outputText value="sucursal"/>
+                       </f:facet>
+                        <h:outputText value="#{detCat.idsucursal.nombre}"/>
+                     </p:column> 
+                    
+                    <p:column sortBy="#{detCat.idcanal}" headerText="canal">
+                       <f:facet name="canal">
+                                <h:outputText value="canal"/>
+                       </f:facet>
+                        <h:outputText value="#{detCat.idcanal.nombreCanal}"/>
+                     </p:column> 
+                    
+                    <p:column sortBy="#{detCat.ctaContab}" headerText="Cuenta">
+                       <f:facet name="cuenta">
+                                <h:outputText value="cuenta"/>
+                       </f:facet>
+                        <h:outputText value="#{detCat.ctaContab}"/>
+                     </p:column> 
+                    
+                     <p:column> 
+                         <p:commandButton id="viewButton2" actionListener="#{detCatalogoBean.buscarCatalogo}" 
+                                          value="Modificar" icon="ui-icon-search"  
+                                          update=":catalogoDetailForm:displayG" oncomplete="dlg.show()">
+                         <f:attribute name="plu" value="#{detCat.id}"></f:attribute>
+                         </p:commandButton>
+                     </p:column>
+               <p:column>
+                        <p:commandButton id="delButton"  
+                                          value="Eliminar" icon="ui-icon-trash"  
+                                          update=":catalogoDetailForm:displayG" >
+                         <f:attribute name="plu" value="#{detCat.id}"></f:attribute>
+                         </p:commandButton>
+                </p:column>  
+                    
+                    
+
+        </p:dataTable>
+            </p:panel>  
+            
+            
+                <p:dialog header="Detalle de Cuentas" modal="false" showEffect="fade" hideEffect="fade" widgetVar="dlg" resizable="true" >  
+                          <h:panelGrid id="displayG" columns="1">  
+                            <h:outputLabel for="id" value="id: " /> 
+                            <h:inputText  id="id" value="#{detCatalogoBean.id}" ></h:inputText> 
+                            <br/><h:outputLabel for="cuenta" value="Cuenta No.: *" /> 
+                             <p:inputText id="cuenta" value="#{detCatalogoBean.cuentacontab}"></p:inputText> 
+                             <p:message for="cuenta" />
+                             <h:inputHidden  id="idSucursal" value="#{detCatalogoBean.idsucursal}" ></h:inputHidden> 
+                             <h:inputHidden  id="idCatalogo" value="#{detCatalogoBean.idCatalogo}" ></h:inputHidden> 
+                             <h:inputHidden  id="idCanal" value="#{detCatalogoBean.idcanal}" ></h:inputHidden> 
+                            <br/><p:commandButton value="Grabar"  actionListener="#{detCatalogoBean.grabar}" 
+                                                  oncomplete="dlg.hide()" update=":catalogoDetailForm:display"  > 
+                                
+                           </p:commandButton>
+                           </h:panelGrid>   
+                      </p:dialog> 
+            
+        </h:form>
+ </ui:define>
+</ui:composition>

@@ -1,0 +1,118 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!-- =========== FULL CONFIGURATION FILE ================================== -->
+
+<faces-config version="2.0"
+    xmlns="http://java.sun.com/xml/ns/javaee" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+    <managed-bean>
+        <description>LoginBeans</description>
+        <managed-bean-name>loginBean</managed-bean-name>
+        <managed-bean-class>Beans.LoginBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <description>tipodocBean</description>
+        <managed-bean-name>tipodocBean</managed-bean-name>
+        <managed-bean-class>Beans.TipodocBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <description>Canal Bean</description>
+        <managed-bean-name>canalBean</managed-bean-name>
+        <managed-bean-class>Beans.CanalBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    
+
+    
+     <managed-bean>
+        <managed-bean-name>canalesController</managed-bean-name>
+        <managed-bean-class>peticion.CanalesController</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+     </managed-bean>
+   
+    
+    <managed-bean>
+      
+        <description>CatalogoBean</description>
+        <managed-bean-name>catalogoBean</managed-bean-name>
+        <managed-bean-class>Beans.CatalogoBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <description>detCatalogoBean</description>
+        <managed-bean-name>detCatalogoBean</managed-bean-name>
+        <managed-bean-class>Beans.DetCatalogoBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>bodegasBean</managed-bean-name>
+        <managed-bean-class>Beans.BodegasBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>detGastosController</managed-bean-name>
+        <managed-bean-class>peticion.DetGastosController</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope></managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>detGastos</managed-bean-name>
+        <managed-bean-class>Beans.DetalleGastos</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>detLiquid</managed-bean-name>
+        <managed-bean-class>Beans.Liquidaciones</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    
+    
+    <navigation-rule>
+         <from-view-id>/*</from-view-id>
+        <navigation-case>
+            <from-outcome>LISTADO</from-outcome>
+            <to-view-id>/principal.xhtml</to-view-id>
+        </navigation-case>
+         <navigation-case>
+            <from-outcome>NUEVOCANAL</from-outcome>
+            <to-view-id>/app/DetCanal.xhtml</to-view-id>
+        </navigation-case>
+        
+       
+    
+         <navigation-case>
+            <from-outcome>LCANAL</from-outcome>
+            <to-view-id>/app/ListCanales.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>LCATALOGO</from-outcome>
+            <to-view-id>/app/ListCatalogo.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>NUEVOCATALOGO</from-outcome>
+            <to-view-id>/app/DetCatalogo.xhtml</to-view-id>
+        </navigation-case>
+         <navigation-case>
+            <from-outcome>LGASTOS</from-outcome>
+            <to-view-id>/app/ListGastos.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+  <!--    <lifecycle>
+         <phase-listener>yourpackge.security.AuthorizationListener</phase-listener>
+     </lifecycle>
+     
+    <error-page>
+    <exception-type>javax.faces.application.ViewExpiredException</exception-type>
+    <location>/index.xhtml</location>
+     </error-page>-->
+    
+    
+   
+    
+</faces-config>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<div
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:p="http://primefaces.org/ui"
+     xmlns:c="http://java.sun.com/jsp/jstl/core">
+  
+        <h:form id="formD">
+            
+            <p:dialog header="Detalle de Gasto" modal="false" showEffect="fade" hideEffect="fade" widgetVar="dlg5" 
+                      resizable="true"   >
+            <h:panelGrid id="popupedit2" columns="2"    >  
+                     
+                      
+                          <p:row> 
+                               <h:inputHidden id="iddetGasto2" value="#{detGastos.detGastoedit.iddetgasto}" ></h:inputHidden>
+                             <h:outputLabel for="fechadoc2" value="Fecha Doc: *" /> 
+                            <br/><p:calendar id="fechadoc2" value="#{detGastos.detGastoedit.fechaDoc}"  showOn="button" />
+                            <p:message for="fechadoc2" /> 
+                            <br/><h:outputLabel for="tipodoc2" value="Tipo Doc: *" /> 
+                              <br/><p:selectOneMenu id="tipodoc2" value="#{detGastos.detGastoedit.idtipoDoc}">
+                              <f:selectItems value="#{tipodocBean.tipodocLista}" >
+                                    </f:selectItems>
+                                  <p:ajax  event="change" listener="#{detGastos.verIVAedt()}" update="mipanel2" />
+                                  <p:ajax  event="change" listener="#{detGastos.totales()}" update="mipanel2" />
+                                </p:selectOneMenu>
+                              <p:message for="tipodoc2" />
+                             <br/><h:outputLabel for="nodoc2" value="No Doc: *" /> 
+                             <br/><p:inputText id="nodoc2" value="#{detGastos.detGastoedit.numDoc}"></p:inputText> 
+                             <p:message for="nodoc2" />
+                             
+                             <br/><h:outputLabel for="registro2" value="Registro: *" /> 
+                             <br/><p:inputText id="registro2" value="#{detGastos.detGastoedit.provRegistro}"></p:inputText> 
+                             <p:message for="registro2" />
+                             
+                            <br/><h:outputLabel  for="nombreprov2" value="Nombre Proveedor: *" /> 
+                            <br/><p:inputText size="40"  id="nombreprov2" value="#{detGastos.detGastoedit.provNombre}"  maxlength="60" ></p:inputText> 
+                             <p:message for="nombreprov2" />
+                             <br/><h:outputLabel for="canal2" value="Canal Gasto: *" /> 
+                             <br/><p:selectOneMenu id="canal2" value="#{detGastos.detGastoedit.idCanal}">
+                                 <f:selectItems value="#{canalBean.canalLista}">
+                                    </f:selectItems>
+                                </p:selectOneMenu>
+                                 <p:message for="canal2" />
+                             <br/><h:outputLabel for="gasto2" value="Gasto: *" /> 
+                             <br/><p:selectOneMenu id="gasto2" value="#{detGastos.detGastoedit.idGasto}">
+                                    <f:selectItems value="#{catalogoBean.catalogoLista}">
+                                    </f:selectItems>
+                                 <p:ajax   listener="#{detGastos.esFovialEdt(event)}" update="popupedit" />
+                                </p:selectOneMenu>
+                             <p:message for="gasto2" />
+                           
+                          
+                             <br/><h:outputLabel for="concepto2" value="Concepto: *" /> 
+                             <br/><p:inputTextarea rows="5" cols="40" id="concepto2" value="#{detGastos.detGastoedit.concepto}"></p:inputTextarea > 
+                             <p:message for="concepto2" />
+                            </p:row> 
+                         
+                           <h:column>  
+                            <p:panel id="mipanel2" >  
+                               <br/><h:outputLabel for="gravado2" value="Gravado: *" /> 
+                             <br/><p:inputText  id="gravado2" value="#{detGastos.detGastoedit.gravado}">
+                                 <p:ajax  event="keyup" listener="#{detGastos.totales()}" update="iva2,gtotal2" />
+                             </p:inputText> 
+                             <p:message for="gravado2" />
+                             <br/><h:outputLabel for="iva2" value="IVA: *" /> 
+                             <br/><p:inputText id="iva2" value="#{detGastos.detGastoedit.iva}">
+                               
+                             </p:inputText> 
+                             <p:message for="iva2" />
+                             <c:if test="#{detGastos.fovial}" >                                
+                             <br/><h:outputLabel for="fovial2" value="FOVIAL: " /> 
+                             <br/><p:inputText id="fovial2" value="#{detGastos.detGastoedit.fovial}">
+                                 <p:ajax  event="keyup" listener="#{detGastos.totales()}" update="iva2,gtotal2" />
+                             </p:inputText> 
+                             <p:message for="fovial2" />
+                             </c:if>
+                              <br/><h:outputLabel for="gtotal2" value="Gasto Total: *" /> 
+                             <br/> <p:inputText id="gtotal2" value="#{detGastos.detGastoedit.total}"></p:inputText> 
+                             <p:message for="gtotal2" />
+                             
+                             <c:if test="#{detGastos.fovial}" >  
+                             <br/><h:outputLabel for="galonaje2" value="Galonaje s/Doc.: *" /> 
+                             <br/><p:inputText id="galonaje2" value="#{detGastos.detGastoedit.galonesSD}"></p:inputText> 
+                             <p:message for="galonaje2" />
+                              <br/><h:outputLabel for="km2" value="KM Actual: *" /> 
+                             <br/> <p:inputText id="km2" value="#{detGastos.detGastoedit.km_actual}"></p:inputText> 
+                             <p:message for="km2" />
+                             <br/><h:outputLabel for="placa2" value="Placa: *" /> 
+                             <br/><p:inputText id="placa2" value="#{detGastos.detGastoedit.placa}"></p:inputText> 
+                             <p:message for="placa2" />
+                             </c:if>
+                             
+                            </p:panel>
+                           </h:column>
+                          </h:panelGrid> 
+                       <br/><p:commandButton id="aceptbtn3" value="Aceptar"  actionListener="#{detGastos.editar}"  
+                                             oncomplete="dlg2.hide()"  immediate="true"  ajax="true" >
+                           
+                                         
+                       </p:commandButton>
+                       
+                       <p:commandButton id="cancelbtn2" value="Cancelar"  actionListener="#{detGastos.popupeditoff}" 
+                                              type="submit" oncomplete="dlg2.hide()" immediate="true" > 
+                                
+                       </p:commandButton>
+          
+            </p:dialog>
+        </h:form>
+  
+</div>
