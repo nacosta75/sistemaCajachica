@@ -21,12 +21,11 @@
     <authentication-manager alias="authenticationManager">
         <authentication-provider user-service-ref="userLoginService">    
         </authentication-provider>
-        <authentication-provider>            
+        <authentication-provider>                        
             <jdbc-user-service data-source-ref="dataSource" 
                                users-by-username-query="select usuario as username, clave as password, 'true' as enabled from CCH_USUARIO where usuario=? limit 1"
-                               authorities-by-username-query="select usuario as username, nivel as role from CCH_USUARIO where usuario =?  "          >
-            </jdbc-user-service>
-        </authentication-provider>
+                               authorities-by-username-query="select usuario as username, nivel as role from CCH_USUARIO where usuario =?"/>
+         </authentication-provider>
             
     </authentication-manager>	
     <beans:bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
