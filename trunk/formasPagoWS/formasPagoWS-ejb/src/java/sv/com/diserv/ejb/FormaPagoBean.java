@@ -6,6 +6,7 @@
 package sv.com.diserv.ejb;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import javax.ejb.Stateless;
 import sv.com.diserv.dto.FormaPagoDTO;
 import sv.com.diserv.dto.respuestaDTO;
@@ -32,6 +33,8 @@ public class FormaPagoBean implements FormaPagoBeanLocal {
     public respuestaDTO insertFormaPago(FormaPagoDTO params) {
         
         respuestaDTO respuesta= new respuestaDTO();
+        System.out.print("vendedor:"+params.getVendedor());
+        System.out.print("fecha liq:"+params.getFechaLiq());
         
         if (!params.getCodigo().isEmpty())            
         {
@@ -44,8 +47,8 @@ public class FormaPagoBean implements FormaPagoBeanLocal {
                            remesa.setCodliq(params.getCodliq());
                            remesa.setCodpago(params.getCodigo());
                            remesa.setDescripcion(params.getDescripcion());
-                           remesa.setFecha(params.getFecha());
-                           remesa.setFechaliq(params.getFechaLiq());
+                           remesa.setFecha(new Date(params.getFecha()));
+                           remesa.setFechaliq(new Date(params.getFechaLiq()));
                            remesa.setIdliq(params.getIdliq());
                            remesa.setIdsucursal(params.getIdsucursal());
                            remesa.setIdvendedor(params.getIdvendedor());
@@ -71,8 +74,9 @@ public class FormaPagoBean implements FormaPagoBeanLocal {
                     }
                     else
                     {
+                        System.out.print(params.getFechaLiq());
                         respuesta.setCodigo(99);
-                        respuesta.setMensaje("fecha nula");
+                        respuesta.setMensaje("fecha liq nula");
 
                     }               
 
