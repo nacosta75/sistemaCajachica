@@ -14,7 +14,7 @@ import java.util.Date;
 public class FormaPagoDTO {
     
     private String codigo;
-    private Date fecha;
+    private String fecha;
     private String descripcion;
     private String observacion;
     private String tipo;
@@ -23,19 +23,12 @@ public class FormaPagoDTO {
     private String sucursal;
     private String vendedor;
     private String usuario;
-    private Date fechaLiq;
+    private String fechaLiq;
     private int codliq;
     private int idsucursal;
     private int idvendedor;
     private int idliq;
 
-    public Date getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
 
     public int getCodliq() {
         return codliq;
@@ -122,14 +115,6 @@ public class FormaPagoDTO {
         this.usuario = usuario;
     }
 
-    public Date getFechaLiq() {
-        return fechaLiq;
-    }
-
-    public void setFechaLiq(Date fechaLiq) {
-        this.fechaLiq = fechaLiq;
-    }
-
     public int getIdsucursal() {
         return idsucursal;
     }
@@ -152,6 +137,22 @@ public class FormaPagoDTO {
 
     public void setIdliq(int idliq) {
         this.idliq = idliq;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
+    public String getFechaLiq() {
+        return fechaLiq;
+    }
+
+    public void setFechaLiq(String fechaLiq) {
+        this.fechaLiq = fechaLiq;
     }
     
     

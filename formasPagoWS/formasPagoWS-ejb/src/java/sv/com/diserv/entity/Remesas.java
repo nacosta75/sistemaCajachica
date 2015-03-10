@@ -11,9 +11,12 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -47,11 +50,16 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Remesas.findByIdliq", query = "SELECT r FROM Remesas r WHERE r.idliq = :idliq")})
 public class Remesas implements Serializable {
     private static final long serialVersionUID = 1L;
+    
+    
     @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "IDREMESA")
+    @SequenceGenerator(name = "SEQ_REMESAS", sequenceName = "GEN_IDREMESA", initialValue=1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_REMESAS")
     private Integer idremesa;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "FECHA")
